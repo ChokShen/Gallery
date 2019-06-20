@@ -59,6 +59,10 @@ public struct Config {
     public struct CloseButton {
       public static var tintColor: UIColor = UIColor(red: 109/255, green: 107/255, blue: 132/255, alpha: 1)
     }
+    
+    public struct RecordVideoButton {
+        public static var tintColor: UIColor = UIColor(red: 109/255, green: 107/255, blue: 132/255, alpha: 1)
+    }
 
     public struct ArrowButton {
       public static var tintColor: UIColor = UIColor(red: 110/255, green: 117/255, blue: 131/255, alpha: 1)

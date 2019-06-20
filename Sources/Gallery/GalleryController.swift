@@ -5,6 +5,7 @@ public protocol GalleryControllerDelegate: class {
 
   func galleryController(_ controller: GalleryController, didSelectImages images: [Image])
   func galleryController(_ controller: GalleryController, didSelectVideo video: Video)
+  func galleryController(_ controller: GalleryController, didFinishRecordingVideo url: URL?)
   func galleryController(_ controller: GalleryController, requestLightbox images: [Image])
   func galleryControllerDidCancel(_ controller: GalleryController)
 }
@@ -63,7 +64,7 @@ public class GalleryController: UIViewController, PermissionControllerDelegate {
   func makeVideosController() -> VideosController {
     let controller = VideosController(cart: cart)
     controller.title = "Gallery.Videos.Title".g_localize(fallback: "VIDEOS")
-
+    controller.delegate = self
     return controller
   }
 
@@ -141,4 +142,11 @@ public class GalleryController: UIViewController, PermissionControllerDelegate {
       controller.g_removeFromParentController()
     }
   }
+}
+
+// MARK: - VideosControllerDelegate
+extension GalleryController: VideosControllerDelegate {
+    func didFinishRecordingdVideo(url: URL?) {
+        delegate?.galleryController(self, didFinishRecordingVideo: url)
+    }
 }

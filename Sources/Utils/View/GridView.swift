@@ -11,6 +11,7 @@ class GridView: UIView {
   lazy var arrowButton: ArrowButton = self.makeArrowButton()
   lazy var collectionView: UICollectionView = self.makeCollectionView()
   lazy var closeButton: UIButton = self.makeCloseButton()
+  lazy var recordVideoButton: UIButton = self.makeRecordVideoButton()
   lazy var doneButton: UIButton = self.makeDoneButton()
   lazy var emptyView: UIView = self.makeEmptyView()
   lazy var loadingIndicator: UIActivityIndicatorView = self.makeLoadingIndicator()
@@ -35,7 +36,7 @@ class GridView: UIView {
       addSubview($0)
     }
 
-    [closeButton, arrowButton].forEach {
+    [closeButton, arrowButton, recordVideoButton].forEach {
       topView.addSubview($0)
     }
 
@@ -78,7 +79,11 @@ class GridView: UIView {
 
     arrowButton.g_pinCenter()
     arrowButton.g_pin(height: 40)
-
+    
+    recordVideoButton.g_pin(on: .top)
+    recordVideoButton.g_pin(on: .right)
+    recordVideoButton.g_pin(size: CGSize(width: 40, height: 40))
+    
     doneButton.g_pin(on: .centerY)
     doneButton.g_pin(on: .right, constant: -38)
   }
@@ -124,6 +129,14 @@ class GridView: UIView {
 
     return button
   }
+    
+    private func makeRecordVideoButton() -> UIButton {
+        let button = UIButton(type: .custom)
+        button.setImage(GalleryBundle.image("gallery_camera_video")?.withRenderingMode(.alwaysTemplate), for: UIControl.State())
+        button.tintColor = Config.Grid.RecordVideoButton.tintColor
+        button.isHidden = true
+        return button
+    }
 
   private func makeDoneButton() -> UIButton {
     let button = UIButton(type: .system)

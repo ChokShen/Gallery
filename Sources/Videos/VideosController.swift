@@ -1,6 +1,11 @@
 import UIKit
 import Photos
 import AVKit
+import MobileCoreServices
+
+protocol VideosControllerDelegate: class {
+    func didFinishRecordingdVideo( url: URL?)
+}
 
 class VideosController: UIViewController {
 
@@ -12,6 +17,7 @@ class VideosController: UIViewController {
   let library = VideosLibrary()
   let once = Once()
   let cart: Cart
+  weak var delegate: VideosControllerDelegate?
 
   // MARK: - Init
 
@@ -54,6 +60,7 @@ class VideosController: UIViewController {
     infoLabel.g_pin(on: .right, constant: -50)
 
     gridView.closeButton.addTarget(self, action: #selector(closeButtonTouched(_:)), for: .touchUpInside)
+    gridView.recordVideoButton.addTarget(self, action: #selector(recordVideoButtonTouched(_:)), for: .touchUpInside)
     gridView.doneButton.addTarget(self, action: #selector(doneButtonTouched(_:)), for: .touchUpInside)
 
     gridView.collectionView.dataSource = self
@@ -69,6 +76,40 @@ class VideosController: UIViewController {
   @objc func closeButtonTouched(_ button: UIButton) {
     EventHub.shared.close?()
   }
+    
+  // FIXME: 录制视频
+  @objc func recordVideoButtonTouched(_ button: UIButton) {
+    switch Permission.Camera.status {
+    case .notDetermined:
+        Permission.Camera.request {
+            DispatchQueue.main.async {
+                self.openCameraToRecord()
+            }
+        }
+    case .authorized:
+        openCameraToRecord()
+    case .denied, .restricted:
+        let alertVC = UIAlertController(title: "Tips", message: "The camera permission is not enabled. Please open the switch in the system [Settings] > [Privacy] > [Camera] to open the camera function.", preferredStyle: .alert)
+        let openAction = UIAlertAction(title: "Open", style: .default) { (alert) in
+            UIApplication.shared.openURL(URL(string: UIApplication.openSettingsURLString)!)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertVC.addAction(openAction)
+        alertVC.addAction(cancelAction)
+        present(alertVC, animated: true, completion: nil)
+    }
+  }
+    
+    private func openCameraToRecord() {
+        let cameraVC = UIImagePickerController()
+        cameraVC.sourceType = .camera
+        cameraVC.mediaTypes = [(kUTTypeMovie as String)]
+        cameraVC.videoMaximumDuration = 30
+        cameraVC.videoQuality = .typeHigh
+        cameraVC.cameraCaptureMode = .video
+        cameraVC.delegate = self
+        present(cameraVC, animated: true, completion: nil)
+    }
 
   @objc func doneButtonTouched(_ button: UIButton) {
     EventHub.shared.doneWithVideos?()
@@ -97,7 +138,7 @@ class VideosController: UIViewController {
   func makeGridView() -> GridView {
     let view = GridView()
     view.bottomView.alpha = 0
-    
+    view.recordVideoButton.isHidden = false
     return view
   }
 
@@ -212,4 +253,34 @@ extension VideosController: UICollectionViewDataSource, UICollectionViewDelegate
       cell.frameView.alpha = 0
     }
   }
+}
+
+
+// MARK: - UIImagePickerControllerDelegate
+extension VideosController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true) {
+            if let medieType = info[UIImagePickerController.InfoKey.mediaType] as? String {
+                if medieType == (kUTTypeMovie as String) {
+                    if let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
+                        if UIVideoEditorController.canEditVideo(atPath: videoURL.path) {
+                            let editVideoViewController = UIVideoEditorController()
+                            editVideoViewController.delegate = self
+                            editVideoViewController.videoPath = videoURL.path
+                            self.present(editVideoViewController, animated: true, completion: nil)
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+// MARK: - UIVideoEditorControllerDelegate
+extension VideosController: UIVideoEditorControllerDelegate {
+    func videoEditorController(_ editor: UIVideoEditorController, didSaveEditedVideoToPath editedVideoPath: String) {
+        delegate?.didFinishRecordingdVideo(url: URL(string: editedVideoPath))
+        editor.dismiss(animated: true, completion: nil)
+    }
 }
