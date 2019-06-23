@@ -263,24 +263,11 @@ extension VideosController: UIImagePickerControllerDelegate, UINavigationControl
             if let medieType = info[UIImagePickerController.InfoKey.mediaType] as? String {
                 if medieType == (kUTTypeMovie as String) {
                     if let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL {
-                        if UIVideoEditorController.canEditVideo(atPath: videoURL.path) {
-                            let editVideoViewController = UIVideoEditorController()
-                            editVideoViewController.delegate = self
-                            editVideoViewController.videoPath = videoURL.path
-                            self.present(editVideoViewController, animated: true, completion: nil)
-                        }
+                        self.delegate?.didFinishRecordingdVideo(url: videoURL)
                     }
                 }
             }
         }
 
-    }
-}
-
-// MARK: - UIVideoEditorControllerDelegate
-extension VideosController: UIVideoEditorControllerDelegate {
-    func videoEditorController(_ editor: UIVideoEditorController, didSaveEditedVideoToPath editedVideoPath: String) {
-        delegate?.didFinishRecordingdVideo(url: URL(string: editedVideoPath))
-        editor.dismiss(animated: true, completion: nil)
     }
 }
