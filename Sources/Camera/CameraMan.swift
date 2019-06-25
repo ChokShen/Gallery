@@ -126,7 +126,7 @@ class CameraMan {
     }
   }
 
-  func takePhoto(_ previewLayer: AVCaptureVideoPreviewLayer, location: CLLocation?, completion: @escaping ((PHAsset?) -> Void)) {
+  func takePhoto(_ previewLayer: AVCaptureVideoPreviewLayer, completion: @escaping ((PHAsset?) -> Void)) {
     guard let connection = stillImageOutput?.connection(with: .video) else { return }
 
     connection.videoOrientation = Utils.videoOrientation()
@@ -145,12 +145,12 @@ class CameraMan {
             return
         }
 
-        self.savePhoto(image, location: location, completion: completion)
+        self.savePhoto(image, completion: completion)
       }
     }
   }
 
-  func savePhoto(_ image: UIImage, location: CLLocation?, completion: @escaping ((PHAsset?) -> Void)) {
+  func savePhoto(_ image: UIImage, completion: @escaping ((PHAsset?) -> Void)) {
     var localIdentifier: String?
 
     savingQueue.async {
@@ -160,7 +160,6 @@ class CameraMan {
           localIdentifier = request.placeholderForCreatedAsset?.localIdentifier
 
           request.creationDate = Date()
-          request.location = location
         }
 
         DispatchQueue.main.async {

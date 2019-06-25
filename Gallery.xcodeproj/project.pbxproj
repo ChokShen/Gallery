@@ -28,7 +28,6 @@
 		D2D1A6DA1F84F4DB0083D4C5 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1A6A31F84F4DB0083D4C5 /* UIViewController+Extensions.swift */; };
 		D2D1A6DB1F84F4DB0083D4C5 /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1A6A41F84F4DB0083D4C5 /* Fetcher.swift */; };
 		D2D1A6DC1F84F4DB0083D4C5 /* GalleryBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1A6A51F84F4DB0083D4C5 /* GalleryBundle.swift */; };
-		D2D1A6DD1F84F4DB0083D4C5 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1A6A61F84F4DB0083D4C5 /* LocationManager.swift */; };
 		D2D1A6DE1F84F4DB0083D4C5 /* Once.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1A6A71F84F4DB0083D4C5 /* Once.swift */; };
 		D2D1A6DF1F84F4DB0083D4C5 /* PageIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1A6A91F84F4DB0083D4C5 /* PageIndicator.swift */; };
 		D2D1A6E01F84F4DB0083D4C5 /* PagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2D1A6AA1F84F4DB0083D4C5 /* PagesController.swift */; };
@@ -93,7 +92,6 @@
 		D2D1A6A31F84F4DB0083D4C5 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		D2D1A6A41F84F4DB0083D4C5 /* Fetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fetcher.swift; sourceTree = "<group>"; };
 		D2D1A6A51F84F4DB0083D4C5 /* GalleryBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryBundle.swift; sourceTree = "<group>"; };
-		D2D1A6A61F84F4DB0083D4C5 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		D2D1A6A71F84F4DB0083D4C5 /* Once.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Once.swift; sourceTree = "<group>"; };
 		D2D1A6A91F84F4DB0083D4C5 /* PageIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageIndicator.swift; sourceTree = "<group>"; };
 		D2D1A6AA1F84F4DB0083D4C5 /* PagesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagesController.swift; sourceTree = "<group>"; };
@@ -188,7 +186,6 @@
 				D2D1A69C1F84F4DB0083D4C5 /* Extensions */,
 				D2D1A6A41F84F4DB0083D4C5 /* Fetcher.swift */,
 				D2D1A6A51F84F4DB0083D4C5 /* GalleryBundle.swift */,
-				D2D1A6A61F84F4DB0083D4C5 /* LocationManager.swift */,
 				D2D1A6A71F84F4DB0083D4C5 /* Once.swift */,
 				D2D1A6A81F84F4DB0083D4C5 /* Pages */,
 				D2D1A6AB1F84F4DB0083D4C5 /* Permission */,
@@ -490,7 +487,6 @@
 				D2D1A6F91F84F4DB0083D4C5 /* VideosLibrary.swift in Sources */,
 				D2D1A6DF1F84F4DB0083D4C5 /* PageIndicator.swift in Sources */,
 				D2D1A6D11F84F4DB0083D4C5 /* Constraints.swift in Sources */,
-				D2D1A6DD1F84F4DB0083D4C5 /* LocationManager.swift in Sources */,
 				D2D1A6F51F84F4DB0083D4C5 /* Video.swift in Sources */,
 				D2D1A6D31F84F4DB0083D4C5 /* EventHub.swift in Sources */,
 				D2D1A6CF1F84F4DB0083D4C5 /* ImagesLibrary.swift in Sources */,
