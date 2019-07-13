@@ -89,11 +89,11 @@ class VideosController: UIViewController {
     case .authorized:
         openCameraToRecord()
     case .denied, .restricted:
-        let alertVC = UIAlertController(title: "Tips", message: "The camera permission is not enabled. Please open the switch in the system [Settings] > [Privacy] > [Camera] to open the camera function.", preferredStyle: .alert)
-        let openAction = UIAlertAction(title: "Open", style: .default) { (alert) in
+        let alertVC = UIAlertController(title: "GalleryCamera.Permission.Alert.Title".g_localize(fallback: "Tips"), message: "GalleryCamera.Permission.Alert.Message".g_localize(fallback: "The camera permission is not enabled. Please open the switch in the system [Settings] > [Privacy] > [Camera] to open the camera function."), preferredStyle: .alert)
+        let openAction = UIAlertAction(title: "GalleryCamera.Permission.Alert.Open".g_localize(fallback: "Open"), style: .default) { (alert) in
             UIApplication.shared.openURL(URL(string: UIApplication.openSettingsURLString)!)
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "GalleryCamera.Permission.Alert.Cancel".g_localize(fallback: "Cancel"), style: .cancel, handler: nil)
         alertVC.addAction(openAction)
         alertVC.addAction(cancelAction)
         present(alertVC, animated: true, completion: nil)
